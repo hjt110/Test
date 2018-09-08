@@ -22,11 +22,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
-        //test merge
-        //test 3
-        //test 4
-        //哈哈哈
-        //dfdsfdjjj
     }
 
 }
