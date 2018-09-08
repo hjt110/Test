@@ -24,6 +24,7 @@ public class MainActivity extends BaseActivity {
     public void init() {
         //test merge
         //test 3
+        //test 4
     }
 
 }
