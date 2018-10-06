@@ -1,4 +1,4 @@
-package com.example.administrator.test;
+package com.example.aa.test;
 
 import org.junit.Test;
 

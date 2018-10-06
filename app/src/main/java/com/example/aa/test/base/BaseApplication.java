@@ -1,4 +1,4 @@
-package com.example.administrator.test.base;
+package com.example.aa.test.base;
 
 import android.app.Application;
 

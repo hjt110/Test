@@ -1,1 +1,1 @@
-include ':app',  ':lib_ssb'
+include ':app',  ':lib_ssb', ':GreenDaoDemo'
