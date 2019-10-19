@@ -1,25 +1,15 @@
 package com.example.administrator.test;
 
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 
 import com.example.administrator.test.base.BaseActivity;
 import com.tong.lib.net.retrofit.RetrofitManager;
+import com.tong.lib.net.retrofit.api.UrlConfig;
 import com.tong.lib.net.retrofit.observer.BaseObserver;
-import com.tong.lib.net.retrofit.observer.SubscribeObserver;
 
+import java.util.HashMap;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity {
 
@@ -31,10 +21,28 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
-        RetrofitManager.init().executeGet("v4/categories", new BaseObserver<List<TestBean>>() {
+        Map<String,String> hadMap = new HashMap<>();
+        hadMap.put(UrlConfig.BASE_HEAD,UrlConfig.URL_A);
+        RetrofitManager.init().executeGetWithHeader(hadMap,"api/v4/categories", new BaseObserver<List<TestBean>>() {
             @Override
-            protected void onSuccess(List<TestBean> testBeans) throws Exception {
-                Log.e("success",testBeans+"");
+            protected void onSuccess(List<TestBean> testBeans) {
+                Log.e("success", testBeans + "");
+            }
+        });
+
+//        Map<String,String> headMap = new HashMap<>();
+//        headMap.put(UrlConfig.BASE_HEAD,UrlConfig.URL_B);
+//        RetrofitManager.init().executeGetWithHeader(headMap,"banner/json", new BaseObserver<Object>() {
+//            @Override
+//            protected void onSuccess(Object object) {
+//                Log.e("sss",object.toString());
+//            }
+//        });
+
+        RetrofitManager.init().executeGetUseUrl(new HashMap<>(), UrlConfig.URL_B + "banner/json", new HashMap<>(), new BaseObserver<Object>() {
+            @Override
+            protected void onSuccess(Object object) {
+
             }
         });
     }

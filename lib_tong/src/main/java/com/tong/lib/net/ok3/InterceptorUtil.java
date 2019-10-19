@@ -36,8 +36,7 @@ public class InterceptorUtil {
         return chain -> {
             Request request = chain.request();
             //这边添加
-//                Request.Builder builder = request.newBuilder()
-//                        .addHeader("Content-Type","");
+//            Request build = request.newBuilder().addHeader("Content-Type", "application/json;charset=UTF-8").build();
             return chain.proceed(request);
         };
     }

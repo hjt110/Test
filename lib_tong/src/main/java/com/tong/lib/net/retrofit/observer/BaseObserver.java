@@ -29,11 +29,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
-        try {
-            onSuccess(t);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        onSuccess(t);
     }
 
     @Override
@@ -46,7 +42,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     }
 
-    protected abstract void onSuccess(T t) throws Exception;
+    protected abstract void onSuccess(T t);
 
     /**
      * 这里是处理Json转换成实例对象或者集合的方法

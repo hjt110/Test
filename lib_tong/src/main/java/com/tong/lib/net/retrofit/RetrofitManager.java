@@ -29,10 +29,9 @@ public class RetrofitManager {
     private static String BASE_URL = "";
     private final ApiService mApiService;
     private static final String HTTP_MEDIA_TYPE = "application/json ; charset=utf-8";
-    protected Gson mGson;
+    private static Gson mGson = new GsonBuilder().disableHtmlEscaping().create();
 
     private RetrofitManager() {
-        mGson = new GsonBuilder().disableHtmlEscaping().create();
         Retrofit build = new Retrofit.Builder().client(new Ok3().getOkHttpClient())
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())//添加gson转换器
@@ -104,6 +103,18 @@ public class RetrofitManager {
         return setThread(mApiService.executePostWithHeader(headMap, url, requestBody), baseObserver);
     }
 
+    public <T> Observable executeGetUseUrl(Map<String, String> headMap, String url, Map<String, String> map, BaseObserver<T> baseObserver) {
+        return setThread(mApiService.executeGetUseUrl(headMap, url, map), baseObserver);
+    }
+
+    public <T> Observable executePostUseUrl(Map<String, String> headMap, String url, Map<String, String> map, BaseObserver<T> baseObserver) {
+        return setThread(mApiService.executePostUseUrl(headMap, url, map), baseObserver);
+    }
+
+    public <T> Observable executePostUseUrl(Map<String, String> headMap, String url, RequestBody requestBody, BaseObserver<T> baseObserver) {
+        return setThread(mApiService.executePostUseUrl(headMap, url, requestBody), baseObserver);
+    }
+
     private <T> Observable setThread(Observable<ResponseBody> requestObservable, BaseObserver<T> baseObserver) {
         requestObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -111,8 +122,8 @@ public class RetrofitManager {
         return requestObservable;
     }
 
-    public RequestBody getRequestBody(Map map) {
-        RequestBody requestBody = RequestBody.create(MediaType.parse(HTTP_MEDIA_TYPE), mGson.toJson(map));
+    public static RequestBody getRequestBody(Object object) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse(HTTP_MEDIA_TYPE), mGson.toJson(object));
         return requestBody;
     }
 
