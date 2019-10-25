@@ -13,6 +13,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
@@ -49,6 +50,10 @@ public class RetrofitManager {
             }
         }
         return mRetrofitManager;
+    }
+
+    public ApiService getApiService(){
+        return mApiService;
     }
 
     public static void setBaseUrl(String baseUrl) {
@@ -113,6 +118,10 @@ public class RetrofitManager {
 
     public <T> Observable executePostUseUrl(Map<String, String> headMap, String url, RequestBody requestBody, BaseObserver<T> baseObserver) {
         return setThread(mApiService.executePostUseUrl(headMap, url, requestBody), baseObserver);
+    }
+
+    public <T> Observable executePostFile(Map<String, String> headMap, String url, MultipartBody.Part part, BaseObserver<T> baseObserver) {
+        return setThread(mApiService.executePostFile(headMap, url, part), baseObserver);
     }
 
     private <T> Observable setThread(Observable<ResponseBody> requestObservable, BaseObserver<T> baseObserver) {
